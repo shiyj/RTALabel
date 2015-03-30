@@ -14,6 +14,10 @@
 		69B63D9C1AC97F7F00DE7E60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69B63D9B1AC97F7F00DE7E60 /* Images.xcassets */; };
 		69B63D9F1AC97F7F00DE7E60 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B63D9D1AC97F7F00DE7E60 /* LaunchScreen.xib */; };
 		69B63DAB1AC97F7F00DE7E60 /* RTALabelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B63DAA1AC97F7F00DE7E60 /* RTALabelTests.m */; };
+		69B63DBB1AC9803100DE7E60 /* RTAComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B63DB61AC9803100DE7E60 /* RTAComponent.m */; };
+		69B63DBC1AC9803100DE7E60 /* RTAExtractedComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B63DB81AC9803100DE7E60 /* RTAExtractedComponent.m */; };
+		69B63DBD1AC9803100DE7E60 /* UILabel+RichText.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B63DBA1AC9803100DE7E60 /* UILabel+RichText.m */; };
+		69E3C3C81AC9885600EE1A3A /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E3C3C71AC9885600EE1A3A /* content.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +44,13 @@
 		69B63DA41AC97F7F00DE7E60 /* RTALabelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RTALabelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		69B63DA91AC97F7F00DE7E60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69B63DAA1AC97F7F00DE7E60 /* RTALabelTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RTALabelTests.m; sourceTree = "<group>"; };
+		69B63DB51AC9803100DE7E60 /* RTAComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAComponent.h; sourceTree = "<group>"; };
+		69B63DB61AC9803100DE7E60 /* RTAComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAComponent.m; sourceTree = "<group>"; };
+		69B63DB71AC9803100DE7E60 /* RTAExtractedComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAExtractedComponent.h; sourceTree = "<group>"; };
+		69B63DB81AC9803100DE7E60 /* RTAExtractedComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAExtractedComponent.m; sourceTree = "<group>"; };
+		69B63DB91AC9803100DE7E60 /* UILabel+RichText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+RichText.h"; sourceTree = "<group>"; };
+		69B63DBA1AC9803100DE7E60 /* UILabel+RichText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+RichText.m"; sourceTree = "<group>"; };
+		69E3C3C71AC9885600EE1A3A /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +74,7 @@
 		69B63D821AC97F7F00DE7E60 = {
 			isa = PBXGroup;
 			children = (
+				69B63DB41AC9803100DE7E60 /* Lib */,
 				69B63D8D1AC97F7F00DE7E60 /* RTALabel */,
 				69B63DA71AC97F7F00DE7E60 /* RTALabelTests */,
 				69B63D8C1AC97F7F00DE7E60 /* Products */,
@@ -96,6 +108,7 @@
 		69B63D8E1AC97F7F00DE7E60 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				69E3C3C71AC9885600EE1A3A /* content.json */,
 				69B63D8F1AC97F7F00DE7E60 /* Info.plist */,
 				69B63D901AC97F7F00DE7E60 /* main.m */,
 			);
@@ -117,6 +130,19 @@
 				69B63DA91AC97F7F00DE7E60 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		69B63DB41AC9803100DE7E60 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				69B63DB51AC9803100DE7E60 /* RTAComponent.h */,
+				69B63DB61AC9803100DE7E60 /* RTAComponent.m */,
+				69B63DB71AC9803100DE7E60 /* RTAExtractedComponent.h */,
+				69B63DB81AC9803100DE7E60 /* RTAExtractedComponent.m */,
+				69B63DB91AC9803100DE7E60 /* UILabel+RichText.h */,
+				69B63DBA1AC9803100DE7E60 /* UILabel+RichText.m */,
+			);
+			path = Lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +228,7 @@
 				69B63D9A1AC97F7F00DE7E60 /* Main.storyboard in Resources */,
 				69B63D9F1AC97F7F00DE7E60 /* LaunchScreen.xib in Resources */,
 				69B63D9C1AC97F7F00DE7E60 /* Images.xcassets in Resources */,
+				69E3C3C81AC9885600EE1A3A /* content.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +249,9 @@
 				69B63D971AC97F7F00DE7E60 /* ViewController.m in Sources */,
 				69B63D941AC97F7F00DE7E60 /* AppDelegate.m in Sources */,
 				69B63D911AC97F7F00DE7E60 /* main.m in Sources */,
+				69B63DBB1AC9803100DE7E60 /* RTAComponent.m in Sources */,
+				69B63DBC1AC9803100DE7E60 /* RTAExtractedComponent.m in Sources */,
+				69B63DBD1AC9803100DE7E60 /* UILabel+RichText.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +442,7 @@
 				69B63DB01AC97F7F00DE7E60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		69B63DB11AC97F7F00DE7E60 /* Build configuration list for PBXNativeTarget "RTALabelTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +451,7 @@
 				69B63DB31AC97F7F00DE7E60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
