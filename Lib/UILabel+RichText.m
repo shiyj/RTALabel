@@ -108,6 +108,42 @@ static inline UIColor* colorFromHexString(NSString *color)
 
     return fontSize;
 }
+
+- (void)generateParagraphAttribute:(RTAComponent*)component to:(NSMutableAttributedString*)attr
+{
+    if(!isTagSame(@"p", component.tagLabel)) {
+        return;
+    }
+    
+    NSArray *allKeys = [component.attributes allKeys];
+    NSRange r;
+    r.location = component.position;
+    r.length = component.text.length;
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    BOOL isAdded = NO;
+    for (NSString *key in allKeys) {
+        if (isTagSame(key, @"lineSpace")) {
+            isAdded = YES;
+            CGFloat lineSpace = [component.attributes[key] floatValue];
+            [paragraphStyle setLineSpacing:lineSpace];
+        } else if(isTagSame(key, @"indent")) {
+            isAdded = YES;
+            CGFloat indent = [component.attributes[key] floatValue];
+            paragraphStyle.firstLineHeadIndent = indent;
+        } else if(isTagSame(key, @"paragraphSpacing")) {
+            CGFloat paragraphSpacing = [component.attributes[key] floatValue];
+            paragraphStyle.paragraphSpacing = paragraphSpacing;
+        }
+    }
+    if (isAdded) {
+        [attr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:r];
+    }
+    
+    
+
+}
 - (void)generateAttrabute:(NSMutableAttributedString*)attr ofComponent:(RTAComponent*)component
 {
     NSRange r;
@@ -155,6 +191,13 @@ static inline UIColor* colorFromHexString(NSString *color)
             UIFont *font = [UIFont fontWithName:self.font.fontName size:fontSize];
             [attr addAttribute:NSFontAttributeName value:font range:r];
         }
+    } else if(isTagSame(strKey, @"p")) {
+        CGFloat fontSize = [self generateComponentAttribute:component to:attr];
+        if (fontSize>1) {
+            UIFont *font = [UIFont fontWithName:self.font.fontName size:fontSize];
+            [attr addAttribute:NSFontAttributeName value:font range:r];
+        }
+        [self generateParagraphAttribute:component to:attr];
     }
 }
 

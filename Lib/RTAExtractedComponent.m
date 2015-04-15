@@ -13,7 +13,7 @@
 + (RTAExtractedComponent*)extractTextStyleFromText:(NSString*)data
 {
     NSScanner *scanner = nil;
-    NSString *text = nil;
+    
     NSString *tag = nil;
     
     NSMutableArray *components = [NSMutableArray array];
@@ -22,6 +22,7 @@
     scanner = [NSScanner scannerWithString:data];
     while (![scanner isAtEnd])
     {
+        NSString *text = nil;
         [scanner scanUpToString:@"<" intoString:NULL];
         [scanner scanUpToString:@">" intoString:&text];
         
@@ -32,6 +33,7 @@
         }
         NSString *delimiter = [NSString stringWithFormat:@"%@>", text];
         NSInteger position = [data rangeOfString:delimiter].location;
+        
         if (position!=NSNotFound)
         {
             if ([delimiter rangeOfString:@"<p"].location==0)
@@ -46,6 +48,8 @@
             
             data = [data stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
             data = [data stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+            
+
         }
         
         if ([text rangeOfString:@"</"].location==0)
