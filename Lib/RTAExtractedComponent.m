@@ -36,20 +36,14 @@
         
         if (position!=NSNotFound)
         {
-            if ([delimiter rangeOfString:@"<p"].location==0)
-            {
-                NSString* paragraphReplacement = @"\n";
-                data = [data stringByReplacingOccurrencesOfString:delimiter withString:paragraphReplacement options:NSCaseInsensitiveSearch range:NSMakeRange(last_position, position+delimiter.length-last_position)];
-            }
-            else
-            {
-                data = [data stringByReplacingOccurrencesOfString:delimiter withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(last_position, position+delimiter.length-last_position)];
-            }
+            
+            data = [data stringByReplacingOccurrencesOfString:delimiter withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(last_position, position+delimiter.length-last_position)];
+            
             
             data = [data stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
             data = [data stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
             
-
+            
         }
         
         if ([text rangeOfString:@"</"].location==0)
