@@ -8,8 +8,8 @@
 	"Deleteline: <del>Good code is its own best documentation.</del>",
 	"The trouble with the world is that <del size=30 lineColor=#FF0000 color=#0000FF>the stupid are sure</del> and <u size=30 color=#FF0000 lineColor=#00FF00>the intelligent are full of doubt. </u>",
 	"escape characters: &lt;  &gt;",
-	"If debugging is the process of removing bugs, <p>then programming must be the process of putting them in. ",
-    "<p lineSpace=20>The trouble with programmers is that you can never tell what a programmer is doing until it’s too late.</p>",
+	"<p lineSpace=10 indent=10 paragraphSpacing=30>If debugging is the process of removing bugs,</p>\n <p lineSpace=20 indent=40>then programming must be the process of putting them in. </p>",
+    "<p lineSpace=20 indent=20>The trouble with programmers is that you can never tell what a programmer is doing until it’s too late.</p>",
 	"RTALabel is a <u><b color=#FF0000 size=30>R</b>ich <b color=#FF0000 size=30>T</b>ext Parser for UI<b color=#FF0000 size=30>Label</b> by using NS<b color=#FF0000 size=30>A</b>ttributedString</u>"
 	]
 }

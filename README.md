@@ -33,9 +33,13 @@ now,RTALabel support labels below:
 * attr => a flag for RTALabel to parse it's attributes
 * u => underline
 * del => delete line or Strikethrough line
+* p => Paragraph style label
 
 and attributes:
 
 * color
 * size
-* lineColor(only `u` and `del` label supporte this attribute)
+* lineColor(only `u` and `del` label support this attribute)
+* lineSpace(only `p` label support this attribute)
+* indent(only `p` label support this attribute)
+* paragraphSpacing(only `p` label support this attribute)
