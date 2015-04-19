@@ -1,26 +1,23 @@
 //
-//  ViewController.m
+//  TextViewController.m
 //  RTALabel
 //
-//  Created by engin on 15-3-30.
+//  Created by engin on 15-4-19.
 //  Copyright (c) 2015年 geoinker.com. All rights reserved.
 //
 
-#import "ViewController.h"
-#import "UILabel+RichText.h"
 #import "TextViewController.h"
+#import "RTAAttributeHelper.h"
 
-@interface ViewController ()
+@interface TextViewController()
 {
     NSArray *_allTextArray;
     NSInteger _currentIndex;
 }
-@property (weak, nonatomic) IBOutlet UILabel *originLabel;
-@property (weak, nonatomic) IBOutlet UILabel *renderLabel;
-
+@property (weak, nonatomic) IBOutlet UITextView *originLabel;
+@property (weak, nonatomic) IBOutlet UITextView *renderLabel;
 @end
-
-@implementation ViewController
+@implementation TextViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,7 +36,8 @@
     }
     
     NSString *str = _allTextArray[_currentIndex];
-    [self.renderLabel setRichAttributedText:str];
+    NSAttributedString *attr = [RTAAttributeHelper generateString:str forView:self.renderLabel];
+    self.renderLabel.attributedText = attr;
     self.originLabel.text = str;
 }
 - (NSDictionary*)getDataDic
@@ -62,11 +60,5 @@
 
 - (IBAction)onTapToShowNext:(id)sender {
     [self setCurrentLabel];
-}
-- (IBAction)goToTextViewDemo:(id)sender {
-    UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    TextViewController *con = [board instantiateViewControllerWithIdentifier:@"text"];
-    //TextViewController *con = [TextViewController new];
-    [self.navigationController pushViewController:con animated:YES];
 }
 @end

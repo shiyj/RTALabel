@@ -18,6 +18,8 @@
 		69B63DBC1AC9803100DE7E60 /* RTAExtractedComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B63DB81AC9803100DE7E60 /* RTAExtractedComponent.m */; };
 		69B63DBD1AC9803100DE7E60 /* UILabel+RichText.m in Sources */ = {isa = PBXBuildFile; fileRef = 69B63DBA1AC9803100DE7E60 /* UILabel+RichText.m */; };
 		69E3C3C81AC9885600EE1A3A /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = 69E3C3C71AC9885600EE1A3A /* content.json */; };
+		69EA34D71AE355280022D39B /* RTAAttributeHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 69EA34D61AE355280022D39B /* RTAAttributeHelper.m */; };
+		69EA34DA1AE35A990022D39B /* TextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69EA34D91AE35A990022D39B /* TextViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		69B63DB91AC9803100DE7E60 /* UILabel+RichText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+RichText.h"; sourceTree = "<group>"; };
 		69B63DBA1AC9803100DE7E60 /* UILabel+RichText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+RichText.m"; sourceTree = "<group>"; };
 		69E3C3C71AC9885600EE1A3A /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
+		69EA34D51AE355280022D39B /* RTAAttributeHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTAAttributeHelper.h; sourceTree = "<group>"; };
+		69EA34D61AE355280022D39B /* RTAAttributeHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTAAttributeHelper.m; sourceTree = "<group>"; };
+		69EA34D81AE35A990022D39B /* TextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewController.h; sourceTree = "<group>"; };
+		69EA34D91AE35A990022D39B /* TextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,8 @@
 				69B63D9B1AC97F7F00DE7E60 /* Images.xcassets */,
 				69B63D9D1AC97F7F00DE7E60 /* LaunchScreen.xib */,
 				69B63D8E1AC97F7F00DE7E60 /* Supporting Files */,
+				69EA34D81AE35A990022D39B /* TextViewController.h */,
+				69EA34D91AE35A990022D39B /* TextViewController.m */,
 			);
 			path = RTALabel;
 			sourceTree = "<group>";
@@ -141,6 +149,8 @@
 				69B63DB81AC9803100DE7E60 /* RTAExtractedComponent.m */,
 				69B63DB91AC9803100DE7E60 /* UILabel+RichText.h */,
 				69B63DBA1AC9803100DE7E60 /* UILabel+RichText.m */,
+				69EA34D51AE355280022D39B /* RTAAttributeHelper.h */,
+				69EA34D61AE355280022D39B /* RTAAttributeHelper.m */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -248,6 +258,8 @@
 			files = (
 				69B63D971AC97F7F00DE7E60 /* ViewController.m in Sources */,
 				69B63D941AC97F7F00DE7E60 /* AppDelegate.m in Sources */,
+				69EA34D71AE355280022D39B /* RTAAttributeHelper.m in Sources */,
+				69EA34DA1AE35A990022D39B /* TextViewController.m in Sources */,
 				69B63D911AC97F7F00DE7E60 /* main.m in Sources */,
 				69B63DBB1AC9803100DE7E60 /* RTAComponent.m in Sources */,
 				69B63DBC1AC9803100DE7E60 /* RTAExtractedComponent.m in Sources */,
