@@ -43,3 +43,5 @@ and attributes:
 * lineSpace(only `p` label support this attribute)
 * indent(only `p` label support this attribute)
 * paragraphSpacing(only `p` label support this attribute)
+* fontName ( `b` and `i` not support it,because these two labels only show the system font name. You can use `fontName` to satisfy a bold or italic font, e.g. `fontName=Verdana-Italic`)
+* fontStyle (`b` and `i` not support it . It cannot work together whith `fontName` because you can satisfy it by use the font name directry. so it only support system font.) `medium`,`bold`,`light`,`thin`,`heavy`,`semiBold`,`black`,`ultraLight`

@@ -28,12 +28,17 @@
     NSDictionary *dic = [self getDataDic];
     _allTextArray = dic[@"items"];
     _currentIndex = 0;
-    [self setCurrentLabel];
+    [self updateCurrentIndexByStep:0];
 }
 
-- (void)setCurrentLabel
+- (void)updateCurrentIndexByStep:(NSInteger)step
 {
-    _currentIndex ++;
+    _currentIndex += step;
+    
+    if (_currentIndex < 0) {
+        _currentIndex = [_allTextArray count] - 1;
+    }
+    
     if (_currentIndex >= [_allTextArray count]) {
         _currentIndex = 0;
     }
@@ -42,6 +47,7 @@
     [self.renderLabel setRichAttributedText:str];
     self.originLabel.text = str;
 }
+
 - (NSDictionary*)getDataDic
 {
     NSString *strPath = [[NSBundle mainBundle] pathForResource:@"content" ofType:@"json"];
@@ -61,8 +67,13 @@
 }
 
 - (IBAction)onTapToShowNext:(id)sender {
-    [self setCurrentLabel];
+    [self updateCurrentIndexByStep:1];
 }
+
+- (IBAction)onTapToShowPre:(id)sender {
+    [self updateCurrentIndexByStep:-1];
+}
+
 - (IBAction)goToTextViewDemo:(id)sender {
     UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     TextViewController *con = [board instantiateViewControllerWithIdentifier:@"text"];

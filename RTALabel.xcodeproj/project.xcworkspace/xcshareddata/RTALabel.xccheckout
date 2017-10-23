@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>305944DB-E32A-490E-93E4-3528E1C59B0A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RTALabel</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BCFD6024F6E5BD4B7CCD7C45F007154F93086C9F</key>
+		<string>https://github.com/shiyj/RTALabel.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RTALabel.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BCFD6024F6E5BD4B7CCD7C45F007154F93086C9F</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/shiyj/RTALabel.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BCFD6024F6E5BD4B7CCD7C45F007154F93086C9F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BCFD6024F6E5BD4B7CCD7C45F007154F93086C9F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RTALabel</string>
+		</dict>
+	</array>
+</dict>
+</plist>

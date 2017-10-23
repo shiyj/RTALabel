@@ -120,10 +120,15 @@ static inline UIColor* colorFromHexString(NSString *color)
     return attStr;
 }
 
+static NSString *g_rta_fontName = @"fontName";
+static NSString *g_rta_fontNameStyle = @"fontStyle";
+static NSString *g_rta_fontSize = @"fontSize";
 
-- (CGFloat)generateComponentAttribute:(RTAComponent*)component to:(NSMutableAttributedString*)attr
-{
-    CGFloat fontSize = -1;
+- (NSDictionary *)generateComponentAttribute_ext:(RTAComponent*)component to:(NSMutableAttributedString*)attr {
+    NSNumber *fontSizeNumber = nil;
+    NSString *fontName = nil;
+    NSString *fontStyle = nil;
+    
     NSArray *allKeys = [component.attributes allKeys];
     NSRange r;
     r.location = component.position;
@@ -136,7 +141,11 @@ static inline UIColor* colorFromHexString(NSString *color)
                 [attr addAttribute:NSForegroundColorAttributeName value:color range:r];
             }
         } else if(isTagSame(key, @"size")){
-            fontSize = [component.attributes[key] floatValue];
+            fontSizeNumber = component.attributes[key];
+        } else if(isTagSame(key, @"fontName")){
+            fontName = component.attributes[key];
+        }  else if(isTagSame(key, @"fontStyle")){
+            fontStyle = component.attributes[key];
         } else if (isTagSame(key, @"lineColor")) {
             UIColor *color = colorFromHexString(component.attributes[key]);
             if (nil!=color) {
@@ -154,7 +163,19 @@ static inline UIColor* colorFromHexString(NSString *color)
         }
     }
     
-    return fontSize;
+    NSMutableDictionary *mDic = [NSMutableDictionary new];
+    if (nil != fontName) {
+        mDic[g_rta_fontName] = fontName;
+    }
+    
+    if (nil != fontSizeNumber) {
+        mDic[g_rta_fontSize] = fontSizeNumber;
+    }
+    
+    if (nil != fontStyle) {
+        mDic[g_rta_fontNameStyle] = fontStyle;
+    }
+    return mDic;
 }
 
 - (void)generateParagraphAttribute:(RTAComponent*)component to:(NSMutableAttributedString*)attr
@@ -188,10 +209,52 @@ static inline UIColor* colorFromHexString(NSString *color)
     if (isAdded) {
         [attr addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:r];
     }
-    
-    
-    
 }
+
+- (UIFont *)generateFontWithSize:(CGFloat)fontSize fontName:(NSString *)fontName fontStyle:(NSString *)fontStyle {
+    if (fontSize < 1 && fontName.length < 1 && fontStyle.length < 1) {
+        return nil;
+    }
+    if (fontSize < 1) {
+        fontSize = self.fontSize;
+    }
+    
+    // if the fontName is nil then use systemFont style
+    UIFont *font = nil;
+    if (nil == fontName && nil != fontStyle) {
+        UIFontWeight weight = -1;
+        if (isTagSame(@"medium", fontStyle)) {
+            weight = UIFontWeightMedium;
+        } else if (isTagSame(@"bold", fontStyle)) {
+            weight = UIFontWeightBold;
+        } else if (isTagSame(@"light", fontStyle)) {
+            weight = UIFontWeightLight;
+        } else if (isTagSame(@"thin", fontStyle)) {
+            weight = UIFontWeightThin;
+        } else if (isTagSame(@"heavy", fontStyle)) {
+            weight = UIFontWeightHeavy;
+        } else if (isTagSame(@"ultraLight", fontStyle)) {
+            weight = UIFontWeightUltraLight;
+        } else if (isTagSame(@"semiBold", fontStyle)) {
+            weight = UIFontWeightSemibold;
+        } else if (isTagSame(@"black", fontStyle)) {
+            weight = UIFontWeightBlack;
+        } else {
+            font = [UIFont systemFontOfSize:fontSize];
+        }
+        if (nil == font) {
+            font = [UIFont systemFontOfSize:fontSize weight:weight];
+        }
+    } else {
+        if (nil == fontName) {
+            fontName = self.fontName;
+        }
+        font = [UIFont fontWithName:fontName size:fontSize];
+    }
+    
+    return font;
+}
+
 - (void)generateAttrabute:(NSMutableAttributedString*)attr ofComponent:(RTAComponent*)component
 {
     NSRange r;
@@ -201,27 +264,35 @@ static inline UIColor* colorFromHexString(NSString *color)
     
     NSString *strKey = component.tagLabel;
     
+    NSDictionary *fontParams = [self generateComponentAttribute_ext:component to:attr];
+    
+    NSString *fontName = fontParams[g_rta_fontName];
+    NSString *fontStyle = fontParams[g_rta_fontNameStyle];
+    CGFloat fontSize = [fontParams[g_rta_fontSize] floatValue];
+
+    // <i> <b> label only support UIFont systemFont.
+    // other labels can support fontName and fontStyle.
+    
     if (isTagSame(strKey, @"i")) {
-        CGFloat fontSize = [self generateComponentAttribute:component to:attr];
         if (fontSize<1) {
             fontSize = self.fontSize;
         }
         UIFont *font = [UIFont italicSystemFontOfSize:fontSize];
         [attr addAttribute:NSFontAttributeName value:font range:r];
-        
     } else if(isTagSame(strKey, @"b")) {
-        CGFloat fontSize = [self generateComponentAttribute:component to:attr];
         if (fontSize<1) {
             fontSize = self.fontSize;
         }
         UIFont *font = [UIFont boldSystemFontOfSize:fontSize];
         [attr addAttribute:NSFontAttributeName value:font range:r];
     } else if(isTagSame(strKey, @"u") || isTagSame(strKey, @"del")) {
-        CGFloat fontSize = [self generateComponentAttribute:component to:attr];
-        if (fontSize>1) {
-            UIFont *font = [UIFont fontWithName:self.fontName size:fontSize];
+        
+        
+        UIFont *font = [self generateFontWithSize:fontSize fontName:fontName fontStyle:fontStyle];
+        if (font) {
             [attr addAttribute:NSFontAttributeName value:font range:r];
         }
+        
         
         NSNumber *value = @(NSUnderlinePatternSolid | NSUnderlineStyleSingle);
         NSString *name = nil;
@@ -235,16 +306,18 @@ static inline UIColor* colorFromHexString(NSString *color)
                      value:value
                      range:r];
     } else if(isTagSame(strKey, @"attr")) {
-        CGFloat fontSize = [self generateComponentAttribute:component to:attr];
-        if (fontSize>1) {
-            UIFont *font = [UIFont fontWithName:self.fontName size:fontSize];
+        UIFont *font = [self generateFontWithSize:fontSize fontName:fontName fontStyle:fontStyle];
+        if (font) {
             [attr addAttribute:NSFontAttributeName value:font range:r];
         }
     } else if(isTagSame(strKey, @"p")) {
-        CGFloat fontSize = [self generateComponentAttribute:component to:attr];
+        
         if (fontSize>1) {
-            UIFont *font = [UIFont fontWithName:self.fontName size:fontSize];
-            [attr addAttribute:NSFontAttributeName value:font range:r];
+            UIFont *font = [self generateFontWithSize:fontSize fontName:fontName fontStyle:fontStyle];
+            if (font) {
+                [attr addAttribute:NSFontAttributeName value:font range:r];
+            }
+            
         }
         [self generateParagraphAttribute:component to:attr];
     }
