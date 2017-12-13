@@ -4,6 +4,7 @@
 	"<b>Bold</b> <i>Italic</i>,Bold Italic",
 	"<attr color=#FF0000>Nest label:<b>Bold</b> <i>Italic</i></attr>",
      "<attr fontStyle=medium> Medium </attr> <attr fontStyle=bold> Bold </attr> normal <attr fontStyle=light>Light</attr>",
+    "<attr fontName=Zapfino> Zapfino </attr>System",
 	"<attr color=#FF0000>Nest label:<b size=40 color=#00FF00>Bold</b> <i size=40 color=#0000FF>Italic</i></attr>",
 	"Underline: <u>Before software can be reusable, it first has to be usable.</u>",
 	"Deleteline: <del>Good code is its own best documentation.</del>",
