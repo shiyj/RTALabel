@@ -23,6 +23,7 @@
     while (![scanner isAtEnd])
     {
         NSString *text = nil;
+        
         [scanner scanUpToString:@"<" intoString:NULL];
         [scanner scanUpToString:@">" intoString:&text];
         
@@ -31,19 +32,18 @@
             data = [data stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
             break;
         }
+        
         NSString *delimiter = [NSString stringWithFormat:@"%@>", text];
-        NSInteger position = [data rangeOfString:delimiter].location;
+        NSRange searchRange;
+        searchRange.location = last_position;
+        searchRange.length = data.length - last_position;
+        
+        NSRange delimiterRange = [data rangeOfString:delimiter options:NSCaseInsensitiveSearch range:searchRange];
+        NSInteger position = delimiterRange.location;
         
         if (position!=NSNotFound)
         {
-            
-            data = [data stringByReplacingOccurrencesOfString:delimiter withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(last_position, position+delimiter.length-last_position)];
-            
-            
-            data = [data stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
-            data = [data stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
-            
-            
+            data = [data stringByReplacingOccurrencesOfString:delimiter withString:@"" options:NSCaseInsensitiveSearch range:delimiterRange];
         }
         
         if ([text rangeOfString:@"</"].location==0)
@@ -55,14 +55,25 @@
                 for (NSInteger i=[components count]-1; i>=0; i--)
                 {
                     RTAComponent *component = [components objectAtIndex:i];
-                    if (component.text==nil && [component.tagLabel isEqualToString:tag])
+                    if (NO == component.isPair && [component.tagLabel isEqualToString:tag])
                     {
                         NSString *text2 = [data substringWithRange:NSMakeRange(component.position, position-component.position)];
                         component.text = text2;
+                        component.isPair = YES;
+                        
+                        NSString *newText = [text2 stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+                        newText = [newText stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+                        if (newText.length != text2.length) {
+                            NSRange r = NSMakeRange(component.position, text2.length);
+                            data = [data stringByReplacingCharactersInRange:r withString:newText];
+                            component.text = newText;
+                            position -= text2.length - newText.length;
+                        }
                         break;
                     }
                 }
             }
+            
         }
         else
         {
@@ -93,6 +104,7 @@
             component.position = position;
             [components addObject:component];
         }
+        
         last_position = position;
     }
     RTAExtractedComponent *extra = [RTAExtractedComponent new];

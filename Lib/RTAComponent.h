@@ -15,6 +15,7 @@
 
 
 @interface RTAComponent : NSObject
+@property (nonatomic, assign) BOOL isPair;
 @property (nonatomic, assign) int componentIndex;
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSString *tagLabel;
