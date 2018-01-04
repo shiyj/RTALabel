@@ -21,6 +21,15 @@ static inline BOOL isTagSame(NSString *str1,NSString *str2)
 }
 
 
+
+static inline float floatFromHex(NSString *str)
+{
+    NSScanner *scanner = [NSScanner scannerWithString:str];
+    float f;
+    [scanner scanFloat:&f];
+    return f;
+}
+
 static inline int intergerFromHex(NSString *str)
 {
     NSScanner *scanner = [NSScanner scannerWithString:str];
@@ -58,6 +67,23 @@ static inline UIColor* colorFromHexString(NSString *color)
     blue = intergerFromHex(subStr);
     
     return [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1];
+}
+
+static inline CGRect rectFromString(NSString *str)
+{
+    NSRange r= NSMakeRange(1, str.length - 2);
+    str = [str substringWithRange:r];
+    NSArray *arr = [str componentsSeparatedByString:@","];
+    if ([arr count] !=4) {
+        return CGRectZero;
+    }
+    
+    CGRect rect;
+    rect.origin.x = floatFromHex(arr[0]);
+    rect.origin.y = floatFromHex(arr[1]);
+    rect.size.width = floatFromHex(arr[2]);
+    rect.size.height = floatFromHex(arr[3]);
+    return rect;
 }
 #pragma mark - RTAAttributeHelper
 @interface RTAAttributeHelper()
@@ -109,13 +135,31 @@ static inline UIColor* colorFromHexString(NSString *color)
     return _fontName;
 }
 #pragma mark - generate attribute string
+
+-(BOOL)isAppendComponent:(RTAComponent *)component {
+    if (isTagSame(component.tagLabel, @"image")) {
+        return YES;
+    }
+    return NO;
+}
 -(NSAttributedString*)generateString:(NSString*)richText
 {
     RTAExtractedComponent *ext = [RTAExtractedComponent extractTextStyleFromText:richText];
     NSString *realStr = ext.plainText;
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:realStr];
-    for (RTAComponent *component in ext.textComponents) {
-        [self generateAttrabute:attStr ofComponent:component];
+    NSMutableArray *insertComponents = [NSMutableArray new];
+    for (NSInteger i=[ext.textComponents count] - 1; i>= 0; --i) {
+        RTAComponent *component = ext.textComponents[i];
+        if ([self isAppendComponent:component]) {
+            [insertComponents addObject:component];
+        } else {
+            [self generateAttrabute:attStr ofComponent:component];
+        }
+    }
+    
+    for (NSInteger i=0; i<[insertComponents count]; i++) {
+        RTAComponent *component = insertComponents[i];
+        [self generateImageAttribute:component to:attStr];
     }
     return attStr;
 }
@@ -255,15 +299,42 @@ static NSString *g_rta_fontSize = @"fontSize";
     return font;
 }
 
+- (void)generateImageAttribute:(RTAComponent*)component to:(NSMutableAttributedString*)attr
+{
+    NSArray *allKeys = [component.attributes allKeys];
+    NSString *imageName = nil;
+    NSString *boundsString = nil;
+    for (NSString *key in allKeys) {
+        if (isTagSame(key, @"imageName")) {
+            imageName = component.attributes[key];
+        } else if (isTagSame(key, @"bounds")) {
+            boundsString = component.attributes[key];
+        }
+    }
+    if (imageName.length > 0) {
+        UIImage *image = [UIImage imageNamed:imageName];
+        if (image) {
+            NSTextAttachment *attachement = [NSTextAttachment new];
+            attachement.image = image;
+            CGRect bounds = rectFromString(boundsString);
+            if (CGRectEqualToRect(bounds, CGRectZero) ) {
+                bounds.size = image.size;
+            }
+            attachement.bounds = rectFromString(boundsString);
+            NSAttributedString *imgAttr = [NSAttributedString attributedStringWithAttachment:attachement];
+            [attr insertAttributedString:imgAttr atIndex:component.position];
+        }
+    }
+}
 - (void)generateAttrabute:(NSMutableAttributedString*)attr ofComponent:(RTAComponent*)component
 {
+    NSString *strKey = component.tagLabel;
+    if (isTagSame(strKey, @"image")) {
+        return;
+    }
     NSRange r;
-    
     r.location = component.position;
     r.length = component.text.length;
-    
-    NSString *strKey = component.tagLabel;
-    
     NSDictionary *fontParams = [self generateComponentAttribute_ext:component to:attr];
     
     NSString *fontName = fontParams[g_rta_fontName];
