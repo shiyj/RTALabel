@@ -1,6 +1,7 @@
 {
 	"items":[
 	"Hello <attr color=#FF0000 size=30>World</attr>",
+    "Hello <attr bg_color=#FF0000 size=30>World</attr>",
 	"<b>Bold</b> <i>Italic</i>,Bold Italic",
 	"<attr color=#FF0000>Nest label:<b>Bold</b> <i>Italic</i></attr>",
      "<attr fontStyle=medium> Medium </attr> <attr fontStyle=bold> Bold </attr> normal <attr fontStyle=light>Light</attr>",

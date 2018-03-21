@@ -184,6 +184,11 @@ static NSString *g_rta_fontSize = @"fontSize";
             if (nil!=color) {
                 [attr addAttribute:NSForegroundColorAttributeName value:color range:r];
             }
+        } else if(isTagSame(key, @"bg_color")) {
+            UIColor *color =colorFromHexString(component.attributes[key]);
+            if (nil!=color) {
+                [attr addAttribute:NSBackgroundColorAttributeName value:color range:r];
+            }
         } else if(isTagSame(key, @"size")){
             fontSizeNumber = component.attributes[key];
         } else if(isTagSame(key, @"fontName")){

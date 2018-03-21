@@ -34,14 +34,18 @@ now,RTALabel support labels below:
 * u => underline
 * del => delete line or Strikethrough line
 * p => Paragraph style label
+* image => insert image into label.
 
 and attributes:
 
 * color
-* size
+* bg_color the background color of a text
+* size the font size of a text
 * lineColor(only `u` and `del` label support this attribute)
 * lineSpace(only `p` label support this attribute)
 * indent(only `p` label support this attribute)
 * paragraphSpacing(only `p` label support this attribute)
 * fontName ( `b` and `i` not support it,because these two labels only show the system font name. You can use `fontName` to satisfy a bold or italic font, e.g. `fontName=Verdana-Italic`)
 * fontStyle (`b` and `i` not support it . It cannot work together whith `fontName` because you can satisfy it by use the font name directry. so it only support system font.) `medium`,`bold`,`light`,`thin`,`heavy`,`semiBold`,`black`,`ultraLight`
+* imageName(only `image` label support this attribute)
+* bounds(only `image` label support this attribute)
