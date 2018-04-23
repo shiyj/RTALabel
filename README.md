@@ -38,7 +38,7 @@ now,RTALabel support labels below:
 
 and attributes:
 
-* color
+* color (support css style color:`#FF0000`, and an alpha style:`#FF000033` which means red in 0.2( 33/FF or 51.0/255.0) alpha.
 * bg_color the background color of a text
 * size the font size of a text
 * lineColor(only `u` and `del` label support this attribute)

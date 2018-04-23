@@ -58,15 +58,25 @@ static inline UIColor* colorFromHexString(NSString *color)
     subStr = [color substringWithRange:range];
     red = intergerFromHex(subStr);
     
+    // green
     range.location +=2;
     subStr = [color substringWithRange:range];
     green = intergerFromHex(subStr);
     
+    // blue
     range.location +=2;
     subStr = [color substringWithRange:range];
     blue = intergerFromHex(subStr);
     
-    return [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:1];
+    // alpha
+    CGFloat alpha = 1;
+    range.location += 2;
+    if (color.length >=  range.location + range.length) {
+        subStr = [color substringWithRange:range];
+        alpha = intergerFromHex(subStr)/255.0;
+    }
+    
+    return [UIColor colorWithRed:red/255.0 green:green/255.0 blue:blue/255.0 alpha:alpha];
 }
 
 static inline CGRect rectFromString(NSString *str)
