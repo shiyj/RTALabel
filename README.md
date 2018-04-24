@@ -35,6 +35,7 @@ now,RTALabel support labels below:
 * del => delete line or Strikethrough line
 * p => Paragraph style label
 * image => insert image into label.
+* space => space between characters.
 
 and attributes:
 
@@ -49,3 +50,4 @@ and attributes:
 * fontStyle (`b` and `i` not support it . It cannot work together whith `fontName` because you can satisfy it by use the font name directry. so it only support system font.) `medium`,`bold`,`light`,`thin`,`heavy`,`semiBold`,`black`,`ultraLight`
 * imageName(only `image` label support this attribute)
 * bounds(only `image` label support this attribute)
+* value(only `space` label support this attribute)

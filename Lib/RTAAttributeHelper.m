@@ -147,11 +147,13 @@ static inline CGRect rectFromString(NSString *str)
 #pragma mark - generate attribute string
 
 -(BOOL)isAppendComponent:(RTAComponent *)component {
-    if (isTagSame(component.tagLabel, @"image")) {
+    if (isTagSame(component.tagLabel, @"image")
+        || isTagSame(component.tagLabel, @"space")) {
         return YES;
     }
     return NO;
 }
+
 -(NSAttributedString*)generateString:(NSString*)richText
 {
     RTAExtractedComponent *ext = [RTAExtractedComponent extractTextStyleFromText:richText];
@@ -169,7 +171,11 @@ static inline CGRect rectFromString(NSString *str)
     
     for (NSInteger i=0; i<[insertComponents count]; i++) {
         RTAComponent *component = insertComponents[i];
-        [self generateImageAttribute:component to:attStr];
+        if ([component.tagLabel isEqualToString:@"image"]) {
+            [self generateImageAttribute:component to:attStr];
+        } else if([component.tagLabel isEqualToString:@"space"]) {
+            [self generateSpaceAttribute:component to:attStr];
+        }
     }
     return attStr;
 }
@@ -314,6 +320,30 @@ static NSString *g_rta_fontSize = @"fontSize";
     return font;
 }
 
+- (void)generateSpaceAttribute:(RTAComponent*)component to:(NSMutableAttributedString*)attr {
+    NSArray *allKeys = [component.attributes allKeys];
+    NSString *strValue = nil;
+    
+    for (NSString *key in allKeys) {
+        if (isTagSame(key, @"value")) {
+            strValue = component.attributes[key];
+            break;
+        }
+    }
+    if (strValue.length > 0) {
+        CGFloat offset = [strValue floatValue];
+        
+        if (component.position <= 0) {
+            return;
+        }
+        NSInteger len = component.text.length;
+        if (len < 1) {
+            len = 1;
+        }
+        NSRange r = NSMakeRange(component.position - 1, len);
+        [attr addAttribute:NSKernAttributeName value:@(offset) range:r];
+    }
+}
 - (void)generateImageAttribute:(RTAComponent*)component to:(NSMutableAttributedString*)attr
 {
     NSArray *allKeys = [component.attributes allKeys];
