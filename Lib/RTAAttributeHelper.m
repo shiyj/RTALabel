@@ -334,8 +334,13 @@ static NSString *g_rta_fontSize = @"fontSize";
             CGRect bounds = rectFromString(boundsString);
             if (CGRectEqualToRect(bounds, CGRectZero) ) {
                 bounds.size = image.size;
+                UIFont *font = [UIFont fontWithName:self.fontName size:self.fontSize];
+                if (font) {
+                    CGFloat y = -(font.lineHeight - font.pointSize)/2.0;
+                    bounds.origin.y = y;
+                }
             }
-            attachement.bounds = rectFromString(boundsString);
+            attachement.bounds = bounds;
             NSAttributedString *imgAttr = [NSAttributedString attributedStringWithAttachment:attachement];
             [attr insertAttributedString:imgAttr atIndex:component.position];
         }
