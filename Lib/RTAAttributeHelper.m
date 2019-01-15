@@ -304,6 +304,8 @@ static NSString *g_rta_fontSize = @"fontSize";
             weight = UIFontWeightSemibold;
         } else if (isTagSame(@"black", fontStyle)) {
             weight = UIFontWeightBlack;
+        } else if (isTagSame(@"regular", fontStyle)) {
+            weight = UIFontWeightRegular;
         } else {
             font = [UIFont systemFontOfSize:fontSize];
         }
