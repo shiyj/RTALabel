@@ -269,6 +269,22 @@ static NSString *g_rta_fontSize = @"fontSize";
         } else if(isTagSame(key, @"paragraphSpacing")) {
             CGFloat paragraphSpacing = [component.attributes[key] floatValue];
             paragraphStyle.paragraphSpacing = paragraphSpacing;
+        } else if(isTagSame(key, @"align")) {
+            NSString *value = component.attributes[key];
+            
+            NSTextAlignment align = NSTextAlignmentLeft;
+            if (isTagSame(@"left", value)) {
+                align = NSTextAlignmentLeft;
+            } else if (isTagSame(@"right", value)) {
+                align = NSTextAlignmentRight;
+            } else if (isTagSame(@"center", value)) {
+                align = NSTextAlignmentCenter;
+            } else if (isTagSame(@"Justified", value)) {
+                align = NSTextAlignmentJustified;
+            } else if (isTagSame(@"Natural", value)) {
+                align = NSTextAlignmentNatural;
+            }
+            paragraphStyle.alignment = align;
         }
     }
     if (isAdded) {

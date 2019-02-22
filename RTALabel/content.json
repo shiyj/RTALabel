@@ -19,6 +19,8 @@
     "<attr color=#ff0000>escape</attr><attr color=#00ff00>characters:&lt;attr color=#ff0000 &gt;hello&lt;/attr&gt;</attr><attr color=#ff0000>next</attr><attr color=#0000ff >hello</attr>",
 	"<p lineSpace=10 indent=10 paragraphSpacing=30>If debugging is the process of removing bugs,</p>\n <p lineSpace=20 indent=40>then programming must be the process of putting them in. </p>",
     "<p lineSpace=20 indent=20>The trouble with programmers is that you can never tell what a programmer is doing until it’s too late.</p>",
+    "<p lineSpace=20 align=center>The trouble with programmers is that you can never tell what a programmer is doing until it’s too late.</p>",
+    "<p lineSpace=20 align=right>The trouble with programmers is that you can never tell what a programmer is doing until it’s too late.</p>",
 	"RTALabel is a <u><b color=#FF0000 size=30>R</b>ich <b color=#FF0000 size=30>T</b>ext Parser for UI<b color=#FF0000 size=30>Label</b> by using NS<b color=#FF0000 size=30>A</b>ttributedString</u>"
 	]
 }

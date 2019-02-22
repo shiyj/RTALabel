@@ -51,3 +51,4 @@ and attributes:
 * imageName(only `image` label support this attribute)
 * bounds(only `image` label support this attribute)
 * value(only `space` label support this attribute)
+* align(only `p` label support this attribute) `center`,`left`,`right`,`justified`,`natural`
