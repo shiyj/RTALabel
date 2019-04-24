@@ -262,6 +262,14 @@ static NSString *g_rta_fontSize = @"fontSize";
             isAdded = YES;
             CGFloat lineSpace = [component.attributes[key] floatValue];
             [paragraphStyle setLineSpacing:lineSpace];
+        } else if (isTagSame(key, @"minLineHeight")) {
+            isAdded = YES;
+            CGFloat minLineHeight = [component.attributes[key] floatValue];
+            paragraphStyle.minimumLineHeight = minLineHeight;
+        } else if (isTagSame(key, @"maxLineHeight")) {
+            isAdded = YES;
+            CGFloat maxLineHeight = [component.attributes[key] floatValue];
+            paragraphStyle.maximumLineHeight = maxLineHeight;
         } else if(isTagSame(key, @"indent")) {
             isAdded = YES;
             CGFloat indent = [component.attributes[key] floatValue];
